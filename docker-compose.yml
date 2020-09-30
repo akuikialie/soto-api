@@ -1,0 +1,64 @@
+version: '3'
+services:
+
+  #PHP Service
+  soto:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: laravel
+    container_name: soto
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: soto
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - soto-network
+
+  #Nginx Service
+  sotowebserver:
+    image: nginx:alpine
+    container_name: sotowebserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "2000:80"
+      - "40000:443"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - soto-network
+
+  #MySQL Service
+  sotodb:
+    image: mysql:5.7.22
+    container_name: sotodb
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: onklas_db2020
+      MYSQL_ROOT_PASSWORD: onklas_db2020
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql/
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - soto-network
+
+#Docker Networks
+networks:
+  soto-network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local
