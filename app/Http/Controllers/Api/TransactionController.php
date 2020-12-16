@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 
-use App\Models\Journal;
+use App\Models\Transaction;
 
 use App\Http\Controllers\Controller;
 
-use App\Http\Resources\JournalResource;
+use App\Http\Resources\TransactionResource;
 
-class JournalController extends Controller
+class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class JournalController extends Controller
      */
     public function index()
     {
-        return JournalResource::collection(Journal::get());
+        return TransactionResource::collection(Transaction::get()->load('journal', 'vendor'));
     }
 
     /**
@@ -40,7 +40,7 @@ class JournalController extends Controller
      */
     public function store(Request $request)
     {
-        Journal::create($request->all());
+        Transaction::create($request->all());
 
         return response()->json([
             'message' => 'Success'
@@ -50,21 +50,21 @@ class JournalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Journal  $journal
+     * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Journal $journal)
+    public function show(Transaction $transaction)
     {
-        return response()->json($journal->first());
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Journal  $journal
+     * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function edit(Journal $journal)
+    public function edit(Transaction $transaction)
     {
         //
     }
@@ -73,10 +73,10 @@ class JournalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Journal  $journal
+     * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Journal $journal)
+    public function update(Request $request, Transaction $transaction)
     {
         //
     }
@@ -84,10 +84,10 @@ class JournalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Journal  $journal
+     * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Journal $journal)
+    public function destroy(Transaction $transaction)
     {
         //
     }
