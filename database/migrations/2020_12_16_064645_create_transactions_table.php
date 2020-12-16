@@ -16,8 +16,9 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('journal_id')
-                ->nullable()
-                ->constrained();
+                ->nullable();
+            $table->foreignId('vendor_id')
+                ->nullable();
             $table->date('date_at');
             $table->string('name')->nullable();
             $table->text('description')->nullable();
