@@ -20,3 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('journal', 'Api\JournalController@index');
 Route::post('journal', 'Api\JournalController@store');
+
+Route::get('transaction', 'Api\TransactionController@index');
+Route::post('transaction', 'Api\TransactionController@store');
+
+Route::get('vendor', 'Api\VendorController@index');
+Route::post('vendor', 'Api\VendorController@store');
