@@ -55,7 +55,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <body id="kt_body"
 	class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
-
 	<!--begin::Main-->
 	<div class="d-flex flex-column flex-root">
 		<!--begin::Login-->
@@ -63,7 +62,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<div class="d-flex flex-column flex-lg-row flex-row-fluid text-center"
 				style="background-image: url(assets/media/bg/bg-3.jpg);">
 				<!--begin:Content-->
-				<div class="d-flex w-100 flex-center p-25 position-relative overflow-hidden">
+				<div class="d-flex w-100 flex-center p-25" style="overflow-x: auto;">
 					<div class="table-responsive">
 						<p>
 							<h3>Daftar Jurnal ({{ $journal->name }})</h3>
@@ -73,23 +72,23 @@ License: You must have a valid license purchased only from themeforest(the above
 						<table class="table table-striped">
 							<thead>
 								<tr>
-								<th scope="col">#</th>
-								<th scope="col">Date</th>
-								<th scope="col">Name</th>
-								<th scope="col">Description</th>
-								<th scope="col">Amount</th>
-								<th scope="col">Vendor</th>
-								<th scope="col">Type</th>
-								<th scope="col">Status</th>
+								<!-- <th scope="col">#</th> -->
+									<th scope="col">Date</th>
+									<th scope="col">Name</th>
+									<th scope="col">Description</th>
+									<th scope="col">Amount</th>
+									<th scope="col">Vendor</th>
+									<th scope="col">Type</th>
+									<th scope="col">Status</th>
 								</tr>
 							</thead>
 							<tbody>
 								@foreach ($transactions as $row)
 								<tr>
-									<th scope="row"></th>
+									<!-- <th scope="row"></th> -->
 									<td>{{ (new \DateTime($row->date_at))->format('d M Y') }}</td>
 									<td>{{ $row->name }}</td>
-									<td>{{ $row->description }}</td>
+									<td>{!! $row->description !!}</td>
 									<td>{{ number_format($row->amount, 0, '.', ',') }}</td>
 									<td>{{ strtoupper($row->vendor->name) }}</td>
 									<td>{{ strtoupper($row->type) }}</td>
