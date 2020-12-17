@@ -16,7 +16,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        echo "index";
+        return view('transaction.index')->with('journals', Journal::get());
     }
 
     /**
@@ -50,9 +50,16 @@ class TransactionController extends Controller
      * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction)
+    public function show($id)
     {
-        //
+        return view('transaction.detail')
+            ->with(
+                'transactions',
+                Transaction::orderBy('date_at', 'desc')
+                ->where('journal_id', $id)->get()
+            )
+            ->with('sum', Transaction::where('journal_id', $id)->sum('amount'))
+            ->with('journal', Journal::find($id));
     }
 
     /**
