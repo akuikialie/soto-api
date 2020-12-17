@@ -141,7 +141,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								</div>
 								<div class="form-group py-2 border-top m-0">
 									<label for="sel1">Dekripsi:</label>
-									<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+									<textarea class="description" name="description"></textarea>
 								</div>
 								<div class="form-group py-2 border-top m-0">
 									<label for="sel1">Nilai Transaksi:</label>
@@ -233,6 +233,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<script src="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.js') }}"></script>
 	<script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
 	<script src="{{ asset('assets/js/bootstrap-datepicker.js') }}"></script>
+	<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
 	<!--end::Global Theme Bundle-->
 
 	<script type="text/javascript">
@@ -242,6 +243,12 @@ License: You must have a valid license purchased only from themeforest(the above
 				autoclose: true,
 				todayHighlight: true,
 			});
+		});
+	</script>
+	<script>
+		tinymce.init({
+			selector:'textarea.description',
+			height: 300
 		});
 	</script>
 
