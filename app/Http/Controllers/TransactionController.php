@@ -16,6 +16,10 @@ class TransactionController extends Controller
      */
     public function index()
     {
+
+        $journal = Journal::get();
+
+        $journal->load('transactions');
         return view('transaction.index')->with('journals', Journal::get());
     }
 

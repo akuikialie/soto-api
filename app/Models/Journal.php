@@ -18,4 +18,9 @@ class Journal extends Model
         'name',
         'description'
     ];
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

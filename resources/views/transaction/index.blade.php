@@ -74,6 +74,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<th scope="col">#</th>
 								<th scope="col">Name</th>
 								<th scope="col">Description</th>
+								<th scope="col">Amount</th>
 								<th scope="col">Action</th>
 								</tr>
 							</thead>
@@ -83,6 +84,7 @@ License: You must have a valid license purchased only from themeforest(the above
 									<th scope="row"></th>
 									<td>{{ $row->name }}</td>
 									<td>{{ $row->description }}</td>
+									<td>{{ number_format($row->transactions->sum('amount'), 0, '.', ',') }}</td>
 									<td>
 										<a href="{{ route('transaction.view', ['id' => $row->id])}}">
 											<button type="button" class="btn btn-warning">View</button>
