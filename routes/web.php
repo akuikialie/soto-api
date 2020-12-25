@@ -23,3 +23,11 @@ Route::prefix('transaction')->name('transaction.')->group(function () {
     Route::post('store', 'TransactionController@store')->name('store');
     Route::get('view/{id}', 'TransactionController@show')->name('view');
 });
+
+Route::prefix('vendor')->name('vendor.')->group(function () {
+    Route::get('/', 'VendorController@index')->name('index');
+    Route::get('create', 'VendorController@create')->name('create');
+    Route::post('store', 'VendorController@store')->name('store');
+    Route::get('view/{id}', 'VendorController@show')->name('view');
+    Route::get('delete/{id}', 'VendorController@destroy')->name('delete');
+});
