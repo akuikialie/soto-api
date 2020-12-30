@@ -7,7 +7,7 @@
 		<div class="login-signin">
 			<div class="text-center mb-10 mb-lg-20">
 				<h2 class="font-weight-bold">Create Vendor</h2>
-				<p class="text-muted font-weight-bold">Enter your transaction</p>
+				<p class="text-muted font-weight-bold">Enter your Vendor</p>
 			</div>
 			@if(session('errors'))
 				<div class="alert alert-danger alert-dismissible fade show" role="alert">

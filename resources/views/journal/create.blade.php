@@ -6,8 +6,8 @@
 		<!--begin:Sign In Form-->
 		<div class="login-signin">
 			<div class="text-center mb-10 mb-lg-20">
-				<h2 class="font-weight-bold">Create Vendor</h2>
-				<p class="text-muted font-weight-bold">Enter your transaction</p>
+				<h2 class="font-weight-bold">Create Journal</h2>
+				<p class="text-muted font-weight-bold">Enter your Journal</p>
 			</div>
 			@if(session('errors'))
 				<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -32,10 +32,10 @@
 					{{ session()->get('error') }}
 				</div>
 			@endif
-			<form class="form text-left" id="kt_login_signin_form" method="post" action="{{ route('vendor.store') }}">
+			<form class="form text-left" id="kt_login_signin_form" method="post" action="{{ route('journal.store') }}">
 				@csrf
 				<div class="form-group py-2 border-top m-0">
-					<label for="sel1">Nama Vendor:</label>
+					<label for="sel1">Nama Journal:</label>
 					<input class="form-control h-auto border-0 px-0 placeholder-dark-75" type="text"
 						name="name" />
 				</div>
