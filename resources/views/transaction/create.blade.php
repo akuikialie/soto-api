@@ -37,6 +37,7 @@
 				<div class="form-group py-2 m-0">
 					<label for="sel1">Journal:</label>
 					<select class="form-control" name="journal_id">
+						<option> -- Pilih --</option>
 						@foreach ($journals as $row)
 						<option value="{{ $row->id }}"> {{$row->name}}</option>
 						@endforeach
@@ -45,6 +46,7 @@
 				<div class="form-group py-2 m-0">
 					<label for="sel1">Vendor:</label>
 					<select class="form-control" name="vendor_id">
+						<option> -- Pilih --</option>
 						@foreach ($vendors as $row)
 						<option value="{{ $row->id }}"> {{ $row->name }} ({{ $row->description }})</option>
 						@endforeach
