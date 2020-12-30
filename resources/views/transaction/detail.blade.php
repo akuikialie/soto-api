@@ -74,6 +74,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<tr>
 								<!-- <th scope="col">#</th> -->
 									<th scope="col">Date</th>
+									<th scope="col">Day</th>
 									<th scope="col">Name</th>
 									<th scope="col">Description</th>
 									<th scope="col">Amount</th>
@@ -87,6 +88,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<tr>
 									<!-- <th scope="row"></th> -->
 									<td>{{ (new \DateTime($row->date_at))->format('d M Y') }}</td>
+									<td>{{ (new \DateTime($row->date_at))->format('l') }}</td>
 									<td>{{ $row->name }}</td>
 									<td>{!! $row->description !!}</td>
 									<td>{{ number_format($row->amount, 0, '.', ',') }}</td>
