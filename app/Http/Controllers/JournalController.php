@@ -8,7 +8,7 @@ use App\Models\Vendor;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
-class VendorController extends Controller
+class JournalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +18,9 @@ class VendorController extends Controller
     public function index()
     {
 
-        $datas = Vendor::get();
+        $datas = Journal::get();
 
-        return view('vendor.index')->with('datas', $datas);
+        return view('journal.index')->with('datas', $datas);
     }
 
     /**
@@ -30,7 +30,7 @@ class VendorController extends Controller
      */
     public function create()
     {
-        return view('vendor.create');
+        return view('journal.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        Vendor::create($request->all());
+        Journal::create($request->all());
 
         return redirect()->back()->with(['message' => 'Success Save Transaction']);
     }
@@ -54,10 +54,10 @@ class VendorController extends Controller
      */
     public function show($id)
     {
-        return view('vendor.view')
+        return view('journal.view')
             ->with(
-                'vendor',
-                Vendor::find($id)
+                'journal',
+                Journal::find($id)
             );
     }
 
@@ -81,9 +81,9 @@ class VendorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Vendor::find($id)->update($request->all());
+        Journal::find($id)->update($request->all());
 
-        return redirect()->to('vendor');
+        return redirect()->to('journal');
     }
 
     /**
@@ -94,10 +94,10 @@ class VendorController extends Controller
      */
     public function destroy($id)
     {
-        $vendor = Vendor::find($id);
+        $journal = Journal::find($id);
 
-        $vendor->delete();
+        $journal->delete();
 
-        return redirect()->to('vendor');
+        return redirect()->to('journal');
     }
 }

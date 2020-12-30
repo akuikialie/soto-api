@@ -71,12 +71,12 @@
 		<br/>
 		<div class="row">
 			<div class="col-md-6">
-				<a href="{{ route('transaction.create') }}">
+				<a href="{{ route('journal.create') }}">
 					<button type="button" class="btn btn-primary btn-lg">Buat</button>
 				</a>
 			</div>
 			<div class="col-md-6">
-				<a href="{{ route('transaction.index') }}">
+				<a href="{{ route('journal.index') }}">
 					<button type="button" class="btn btn-primary btn-lg">Data</button>
 				</a>
 			</div>

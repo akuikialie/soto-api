@@ -6,7 +6,7 @@
 		<!--begin:Sign In Form-->
 		<div class="login-signin">
 			<div class="text-center mb-10 mb-lg-20">
-				<h2 class="font-weight-bold">Create Vendor</h2>
+				<h2 class="font-weight-bold">Create journal</h2>
 				<p class="text-muted font-weight-bold">Enter your transaction</p>
 			</div>
 			@if(session('errors'))
@@ -32,17 +32,18 @@
 					{{ session()->get('error') }}
 				</div>
 			@endif
-			<form class="form text-left" id="kt_login_signin_form" method="post" action="{{ route('vendor.store') }}">
+			<form class="form text-left" id="kt_login_signin_form" method="post" action="{{ route('journal.update', ['id' => $journal->id]) }}">
+				<input type="hidden" name="_method" value="PUT">
 				@csrf
 				<div class="form-group py-2 border-top m-0">
-					<label for="sel1">Nama Vendor:</label>
+					<label for="sel1">Nama Journal:</label>
 					<input class="form-control h-auto border-0 px-0 placeholder-dark-75" type="text"
-						name="name" />
+						name="name" value="{{ $journal->name }}"/>
 				</div>
 				<div class="form-group py-2 border-top m-0">
 					<label for="sel1">Deskripsi:</label>
 					<input class="form-control h-auto border-0 px-0 placeholder-dark-75" type="text"
-						name="description" />
+						name="description" value="{{ $journal->description }}"/>
 				</div>
 				<div class="text-center mt-15">
 					<button id="kt_login_signin_submit"

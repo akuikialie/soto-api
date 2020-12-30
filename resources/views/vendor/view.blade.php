@@ -32,17 +32,18 @@
 					{{ session()->get('error') }}
 				</div>
 			@endif
-			<form class="form text-left" id="kt_login_signin_form" method="post" action="{{ route('vendor.store') }}">
+			<form class="form text-left" id="kt_login_signin_form" method="post" action="{{ route('vendor.update', ['id' => $vendor->id]) }}">
+				<input type="hidden" name="_method" value="PUT">
 				@csrf
 				<div class="form-group py-2 border-top m-0">
 					<label for="sel1">Nama Vendor:</label>
 					<input class="form-control h-auto border-0 px-0 placeholder-dark-75" type="text"
-						name="name" />
+						name="name" value="{{ $vendor->name }}"/>
 				</div>
 				<div class="form-group py-2 border-top m-0">
 					<label for="sel1">Deskripsi:</label>
 					<input class="form-control h-auto border-0 px-0 placeholder-dark-75" type="text"
-						name="description" />
+						name="description" value="{{ $vendor->description }}"/>
 				</div>
 				<div class="text-center mt-15">
 					<button id="kt_login_signin_submit"

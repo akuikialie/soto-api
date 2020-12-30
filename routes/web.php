@@ -29,5 +29,15 @@ Route::prefix('vendor')->name('vendor.')->group(function () {
     Route::get('create', 'VendorController@create')->name('create');
     Route::post('store', 'VendorController@store')->name('store');
     Route::get('view/{id}', 'VendorController@show')->name('view');
+    Route::put('update/{id}', 'VendorController@update')->name('update');
     Route::get('delete/{id}', 'VendorController@destroy')->name('delete');
+});
+
+Route::prefix('journal')->name('journal.')->group(function () {
+    Route::get('/', 'JournalController@index')->name('index');
+    Route::get('create', 'JournalController@create')->name('create');
+    Route::post('store', 'JournalController@store')->name('store');
+    Route::get('view/{id}', 'JournalController@show')->name('view');
+    Route::put('update/{id}', 'JournalController@update')->name('update');
+    Route::get('delete/{id}', 'JournalController@destroy')->name('delete');
 });

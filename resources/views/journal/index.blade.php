@@ -4,7 +4,7 @@
 <div class="d-flex w-100 flex-center p-25 position-relative overflow-hidden">
 	<div class="table-responsive">
 		<p>
-			<h3>Daftar Vendor</h3>
+			<h3>Daftar Jurnal</h3>
 		</p>
 		<table class="table table-striped">
 			<thead>
@@ -22,10 +22,10 @@
 					<td>{{ $row->name }}</td>
 					<td>{{ $row->description }}</td>
 					<td>
-						<a href="{{ route('vendor.view', ['id' => $row->id])}}">
+						<a href="{{ route('journal.view', ['id' => $row->id])}}">
 							<button type="button" class="btn btn-warning">View</button>
 						</a>
-						<!-- <a href="{{ route('vendor.delete', ['id' => $row->id])}}">
+						<!-- <a href="{{ route('journal.delete', ['id' => $row->id])}}">
 							<button type="button" class="btn btn-danger">Delete</button>
 						</a> -->
 					</td>
