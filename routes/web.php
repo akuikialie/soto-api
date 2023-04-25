@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/route-list', function () {
+    Artisan::call('route:list');
+
+    return '<pre>' . Artisan::output();
+});
