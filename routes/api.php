@@ -31,3 +31,9 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('mobile')->name('mobile.')->group(function () {
     Route::get('/', [App\Http\Controllers\Mobile\DefaultController::class, 'index'])->name('default');
 });
+Route::prefix('external')->name('external.')->group(function () {
+    Route::get('/', [App\Http\Controllers\External\DefaultController::class, 'index'])->name('default');
+    Route::prefix('whatsapp-gateway')->name('whatsapp-gateway.')->group(function () {
+        Route::post('/send-test', [App\Http\Controllers\External\WhatsappGateway\SendTestController::class, 'index'])->name('default');
+    });
+});

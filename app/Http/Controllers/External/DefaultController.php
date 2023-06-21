@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Mobile;
+namespace App\Http\Controllers\External;
 
 use Exception;
 use Illuminate\Http\Request;
@@ -19,8 +19,6 @@ class DefaultController extends Controller
         $dbVersion = '';
         try {
             $mysql = DB::select(DB::raw('select version() as version, current_timestamp as db_timestamp'));
-            // $postgresql = DB::select(DB::raw('select version() as version, current_timestamp as db_timestamp'));
-            // );
 
             $dbVersion = $mysql[0]->version . ' on ' . env('DB_HOST') . ':' . env('DB_PORT');
             $dbTimestamp = $mysql[0]->db_timestamp;
@@ -39,7 +37,7 @@ class DefaultController extends Controller
 
         return response()->json([
             'App Name'          => env('APP_NAME'),
-            'App Prefix'        => 'API - MOBILE - DEFAULT',
+            'App Prefix'        => 'API - EXTERNAL - DEFAULT',
             'App Timezone'      => env('APP_TIMEZONE'),
             'Engine'            => app()->version(),
             'IP_address'        => $_SERVER['REMOTE_ADDR'],
