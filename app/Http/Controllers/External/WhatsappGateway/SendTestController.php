@@ -13,6 +13,8 @@ use Illuminate\Http\JsonResponse;
 
 use GuzzleHttp\Client;
 use Carbon\Carbon;
+use DateTime;
+use DateTimeZone;
 
 class SendTestController extends Controller
 {
@@ -21,25 +23,46 @@ class SendTestController extends Controller
         $client = new Client([
             'verify' => false
         ]);
-        $target[] = '085730432092|Ali|Superadmin';
+        // $target[] = '085730432092|Ali|Superadmin';
+        // $target[] = '081917787195|Umi Ayam Aldi|Pasar';
+        // $target[] = '081230788990|Abah Yusuf Ayam|Pasar';
+        $target[] = '087840180475|Anak Abah Kholili|Pasar';
         // $target[] = '085733171373|Tifani|Finance';
         // $target[] = '081917787195';
+
+var_dump($target);
+
+    $dateTime = '2023-06-30 12:40:00'; 
+    $tz_from = 'Asia/Jakarta'; 
+    $newDateTime = new DateTime($dateTime, new DateTimeZone($tz_from)); 
+
+    $dateTimeUTC = $newDateTime->format("Y-m-d H:i:s");
+    // var_dump($dateTimeUTC);
+    $dateTimeUTCInteger = strtotime($dateTimeUTC);
+    // var_dump($dateTimeUTCInteger);
+
+    // $newDateTime->setTimezone(new DateTimeZone("UTC")); 
+    // $dateTimeUTC = $newDateTime->format("Y-m-d H:i:s");
+    // var_dump($dateTimeUTC);
+    // $dateTimeUTCInteger = strtotime($dateTimeUTC);
+// var_dump($dateTimeUTCInteger);
         
         $target = implode(',', $target);
         $response = $client->post('https://api.fonnte.com/send',
             [
                 'headers' => [
                     // 'Authorization' => env('FONNTE_TOKEN'),
-                    'Authorization' => 'nAhCYxuXJx2VrZJAaSt7', // WA IPHONE
-                    // 'Authorization' => 'GdJ14EeFJ7W89i57j81b', // WA BISNIS
+                    // 'Authorization' => 'nAhCYxuXJx2VrZJAaSt7', // WA IPHONE
+                    'Authorization' => 'GdJ14EeFJ7W89i57j81b', // WA BISNIS
                 ],
                 'form_params' =>
                     [
                         // 'target' => '085730432092',
                         // 'message' => 'via GuzzleHttp',
                         'target' => $target,
-                        'message' => 'Assalamualaikum, test kirim pakai jadwal > Wednesday, June 21, 2023 6:42:37 AM',
-                        'schedule' => '1687329757',
+                        'message' => 'Assalamualaikum, ayam 2',
+                        // 'schedule' => '1687329757',
+                        'schedule' => $dateTimeUTCInteger,
                         // 'message' => 'Assalamualaikum, {name} ({var1}). Coba send WhatsappGateway : '. Carbon::now()->format('Y-m-d H:i:s'),
                         // 'message' => 'Coba send WhatsappGateway : '. Carbon::now()->format('Y-m-d H:i:s'),
                         // 'url' => 'https://md.fonnte.com/images/wa-logo.png',
