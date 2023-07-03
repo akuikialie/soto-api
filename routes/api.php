@@ -37,3 +37,25 @@ Route::prefix('external')->name('external.')->group(function () {
         Route::post('/send-test', [App\Http\Controllers\External\WhatsappGateway\SendTestController::class, 'index'])->name('default');
     });
 });
+
+Route::prefix('panel')->name('panel.')->group(function () {
+    Route::prefix('notification')->name('notification.')->group(function () {
+        Route::prefix('templates')->name('templates.')->group(function () {
+            Route::get('/', [App\Http\Controllers\Panel\Notification\Template\IndexController::class, 'index'])->name('index');
+        });
+        Route::prefix('devices')->name('devices.')->group(function () {
+            Route::get('/', [App\Http\Controllers\Panel\Notification\Device\IndexController::class, 'index'])->name('index');
+        });
+        Route::prefix('targets')->name('targets.')->group(function () {
+            Route::get('/', [App\Http\Controllers\Panel\Notification\Target\IndexController::class, 'index'])->name('index');
+        });
+        Route::prefix('schedules')->name('schedules.')->group(function () {
+            Route::get('/', [App\Http\Controllers\Panel\Notification\Schedule\IndexController::class, 'index'])->name('index');
+        });
+        Route::prefix('messages')->name('messages.')->group(function () {
+            Route::get('/', [App\Http\Controllers\Panel\Notification\Message\IndexController::class, 'index'])->name('index');
+        });
+    });
+
+    // Route::get('/', [App\Http\Controllers\Mobile\DefaultController::class, 'index'])->name('default');
+});
