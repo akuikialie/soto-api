@@ -27,6 +27,9 @@ use Illuminate\Support\Facades\Route;
 //     ->name('api.default.post.env');
 // Route::get('/env',  [DefaultRouteController::class, 'env'])
 //     ->name('api.default.get.env');
+Route::prefix('sync')->name('sync.')->group(function () {
+    Route::get('/trial', [App\Http\Controllers\Sync\TrialController::class, 'index'])->name('default');
+});
 
 Route::prefix('mobile')->name('mobile.')->group(function () {
     Route::get('/', [App\Http\Controllers\Mobile\DefaultController::class, 'index'])->name('default');

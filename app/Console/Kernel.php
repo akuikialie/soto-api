@@ -7,6 +7,10 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+    protected $commands = [
+        Commands\GenerateMessage::class,
+        Commands\SendMessage::class,
+    ];
     /**
      * Define the application's command schedule.
      *
@@ -15,6 +19,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('generate-message:cron')
+                 ->everyMinute();
+        $schedule->command('send-message:cron')
+                 ->everyMinute();
         // $schedule->command('inspire')->hourly();
     }
 
