@@ -47,6 +47,7 @@ class SendMessage extends Command
             ->whereNull('sent_at')
             ->get();
         foreach ($data as $key => $value) {
+            \Log::info("Send ID : ". $value->id);
             $sendMessage = $this->send(
                 $value->notificationTarget->phone,
                 $value->scheduled_at,
