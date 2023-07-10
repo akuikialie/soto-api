@@ -60,5 +60,11 @@ Route::prefix('panel')->name('panel.')->group(function () {
         });
     });
 
-    // Route::get('/', [App\Http\Controllers\Mobile\DefaultController::class, 'index'])->name('default');
+     Route::prefix('master')->name('master.')->group(function () {
+        Route::prefix('targets')->name('targets.')->group(function () {
+            Route::get('/', [App\Http\Controllers\Panel\Notification\Target\IndexController::class, 'index'])->name('index');
+        });
+     });
+
+    Route::get('/', [App\Http\Controllers\Mobile\DefaultController::class, 'index'])->name('default');
 });
