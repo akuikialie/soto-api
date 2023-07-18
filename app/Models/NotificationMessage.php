@@ -10,6 +10,24 @@ class NotificationMessage extends Model
 {
   use HasFactory;
 
+  protected $appends = [
+    'device',
+    'target',
+    'template',
+  ];
+
+  public function getDeviceAttribute() {
+    return $this->notificationWhatsappDevice;
+  }
+
+  public function getTargetAttribute() {
+    return $this->notificationTarget;
+  }
+
+  public function getTemplateAttribute() {
+    return $this->notificationWhatsappTemplate;
+  }
+
   public function scopeActived()
   {
     return $this->where('actived', true);

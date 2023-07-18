@@ -14,15 +14,19 @@ use Illuminate\Http\JsonResponse;
 
 class IndexController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $data = NotificationTarget::all();
+        $data = NotificationTarget::orderBy('name', 'asc');
+
+        if ($request->name) {
+            $data->where('name', 'like', '%'.$request->name.'%');
+        }
 
         return response()->json([
             'status' => true,
             'code' => 200,
             'message' => 'Successfull',
-            'data' => $data,
+            'datas' => $data->paginate($request->limit),
         ], 200, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }
 }
