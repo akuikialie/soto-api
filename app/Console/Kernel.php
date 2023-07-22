@@ -10,6 +10,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\GenerateMessage::class,
         Commands\SendMessage::class,
+        Commands\GenerateEmployeePresence::class,
     ];
     /**
      * Define the application's command schedule.
@@ -19,10 +20,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('generate-message:cron')
-                 ->everyMinute();
+        // $schedule->command('generate-message:cron')
+        //          ->everyMinute();
         $schedule->command('send-message:cron')
-                 ->everyMinute();
+                 ->everyTwoMinutes();
+        $schedule->command('generate-employee-presence:cron')
+                 ->hourly();
         // $schedule->command('inspire')->hourly();
     }
 

@@ -66,5 +66,14 @@ Route::prefix('panel')->name('panel.')->group(function () {
         });
      });
 
+     Route::prefix('hris')->name('hris.')->group(function () {
+        Route::prefix('employees')->name('employees.')->group(function () {
+            Route::get('/', [App\Http\Controllers\Panel\Hris\Employee\IndexController::class, 'index'])->name('index');
+        });
+        Route::prefix('employee-presences')->name('employees-presence.')->group(function () {
+            Route::get('/', [App\Http\Controllers\Panel\Hris\EmployeePresence\IndexController::class, 'index'])->name('index');
+        });
+     });
+
     Route::get('/', [App\Http\Controllers\Mobile\DefaultController::class, 'index'])->name('default');
 });
