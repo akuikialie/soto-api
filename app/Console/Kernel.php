@@ -25,7 +25,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('send-message:cron')
                  ->everyTwoMinutes();
         $schedule->command('generate-employee-presence:cron')
-                 ->hourly();
+                 //->everyTwoMinutes();
+                  ->everyMinute();
         // $schedule->command('inspire')->hourly();
     }
 

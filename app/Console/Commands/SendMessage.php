@@ -44,6 +44,7 @@ class SendMessage extends Command
     {
         \Log::info("Send Message! - START");
         $data = NotificationMessage::actived()
+            ->whereNotNull('requested_at')
             ->whereNull('sent_at')
             ->get();
         foreach ($data as $key => $value) {

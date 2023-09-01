@@ -1,11 +1,7 @@
 <?php
 
 namespace App\Console\Commands;
-
-use Illuminate\Console\Command;
-use App\Models\HrisEmployeePresence;
-use App\Models\HrisEmployee;
-
+use Illuminate\Console\Command; use App\Models\HrisEmployeePresence; use App\Models\HrisEmployee; 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -14,8 +10,7 @@ class GenerateEmployeePresence extends Command
     /**
      * The name and signature of the console command.
      *
-     * @var string
-     */
+     * @var string */
     protected $signature = 'generate-employee-presence:cron';
 
     /**
@@ -43,9 +38,12 @@ class GenerateEmployeePresence extends Command
     public function handle()
     {
         \Log::info("Cron is generate absensi fine! - START");
+	$dateTarget = Carbon::now()->format('Y-m-d');
+//	$dateTarget = '2023-07-02';
+	
         $dataEmployee = HrisEmployee::actived()
-            ->whereDoesntHave('hrisEmployeePresence', function($query){
-                $query->where('presence_date', Carbon::now()->format('Y-m-d'));
+            ->whereDoesntHave('hrisEmployeePresence', function($query) use ($dateTarget){
+                $query->where('presence_date', $dateTarget);
             })
             ->get();
 
@@ -54,7 +52,7 @@ class GenerateEmployeePresence extends Command
             HrisEmployeePresence::create([
                 'uuid' => Str::uuid(),
                 'hris_employee_id' => $employee->id,
-                'presence_date' => Carbon::now()->format('Y-m-d'),
+                'presence_date' => $dateTarget,
                 'drafted' => true,
                 'actived' => false,
             ]);
