@@ -17,6 +17,6 @@ class HrisEmployee extends Model
 
     public function hrisEmployeePresence(): HasMany
   {
-    return $this->hasMany(hrisEmployeePresence::class);
+    return $this->hasMany(HrisEmployeePresence::class);
   }
 }
