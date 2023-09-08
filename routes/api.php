@@ -57,6 +57,13 @@ Route::prefix('panel')->name('panel.')->group(function () {
         });
         Route::prefix('messages')->name('messages.')->group(function () {
             Route::get('/', [App\Http\Controllers\Panel\Notification\Message\IndexController::class, 'index'])->name('index');
+            Route::get('/request', [App\Http\Controllers\Panel\Notification\Message\IndexController::class, 'indexRequest'])->name('index');
+            Route::put('/request/{id}/now', [App\Http\Controllers\Panel\Notification\Message\IndexController::class, 'updateRequestNow'])->name('index');
+            Route::get('/sent', [App\Http\Controllers\Panel\Notification\Message\IndexController::class, 'indexSent'])->name('index');
+            Route::get('/draft', [App\Http\Controllers\Panel\Notification\Message\IndexController::class, 'indexDraft'])->name('index');
+            Route::put('/draft/{id}/now', [App\Http\Controllers\Panel\Notification\Message\IndexController::class, 'updateDraftNow'])->name('index');
+            Route::get('/archive', [App\Http\Controllers\Panel\Notification\Message\IndexController::class, 'indexArchive'])->name('index');
+
         });
     });
 

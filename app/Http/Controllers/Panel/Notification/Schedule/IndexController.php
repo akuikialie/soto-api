@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\Controller;
-use App\Models\NotificationWhatsappTemplate;
+use App\Models\NotificationWhatsappSchedule;
 use Illuminate\Http\JsonResponse;
 
 class IndexController extends Controller
 {
     public function index(): JsonResponse
     {
-        $data = NotificationWhatsappTemplate::all();
+        $data = NotificationWhatsappSchedule::all();
 
         return response()->json([
             'status' => true,
