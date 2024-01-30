@@ -39,6 +39,9 @@ Route::prefix('external')->name('external.')->group(function () {
     Route::prefix('whatsapp-gateway')->name('whatsapp-gateway.')->group(function () {
         Route::post('/send-test', [App\Http\Controllers\External\WhatsappGateway\SendTestController::class, 'index'])->name('default');
     });
+    Route::prefix('network-gateway')->name('whatsapp-gateway.')->group(function () {
+        Route::get('/sync', [App\Http\Controllers\External\NetworkGateway\SyncController::class, 'index'])->name('default');
+    });
 });
 
 Route::prefix('panel')->name('panel.')->group(function () {
