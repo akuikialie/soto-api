@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request as Psr7Request;
+
 class SendNotificationWhatsappKlinikoo extends Command
 {
     /**
@@ -37,7 +40,100 @@ class SendNotificationWhatsappKlinikoo extends Command
      */
     public function handle()
     {
-        \Log::info("Send Message! - START");
-        \Log::info("Send Message! - END");
+        \Log::info("Send Notif Message! - START");
+
+        $service = [
+            'homepage_klinikoo' => false,
+            'mitra_klinikoo' => false,
+            'dashboard_klinikoo' => false,
+            'dokter_klinikoo' => false,
+            'pasien_klinikoo' => false,
+        ];
+        if ($responseHomepage = $this->checkEnv('https://klinikoo.id/env')) {
+            $service['homepage_klinikoo'] = $responseHomepage;
+        }
+        // if ($responseMitra = $this->checkEnv('https://mitra.klinikoo.id/env')) {
+        //     $service['mitra_klinikoo'] = $responseMitra;
+        // }
+        if ($responseDashboard = $this->checkEnv('https://dashboard.klinikoo.id')) {
+            $service['dashboard_klinikoo'] = $responseDashboard;
+        }
+        if ($responseDokterLandingPage = $this->checkEnv('https://dokterapp.klinikoo.id')) {
+            $service['dokter_klinikoo'] = $responseDokterLandingPage;
+        }
+        if ($responseDokterLandingPage = $this->checkEnv('https://apipasien.klinikoo.id/api/v2/my-env')) {
+            $service['pasien_klinikoo'] = $responseDokterLandingPage;
+        }
+       
+        $message = 'Assalamualaikum, ijin share status server.
+
+|------------------|---------------------|
+
+';
+        $index = 1;
+        foreach ($service as $key => $value) {
+            $message .= ''.$index. ' . ['. $key.'] = '. ($value ? '*AKTIF*' : '_MAINTENANCE_'). "
+";
+            $index++;
+        }
+        $message .= '
+|------------------|---------------------|';
+        $message .= '
+
+';
+        $message .= 'Powered _akuikialie.github.io_ - *Bot Whatsapp*';
+
+        $this->sendNotifWa($message, '085730432092');
+
+        \Log::info("Send Notif Message! - END");
+    }
+
+    private function checkEnv($uriDefault, $xApiKey = null) {
+        try {
+            $client = new Client([
+                'verify' => false]
+            );
+            $headers = [
+              'x-api-key' => 'internal-klinikoo',
+              'api-key' => 'oFKyiuiFTQ'
+            ];
+            $request = new Psr7Request(
+                'GET',
+                $uriDefault,
+                $headers
+            );
+            $res = $client->sendAsync($request)->wait();
+
+            if ($res->getStatusCode() !== 200) {
+                return false;
+            }
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    private function sendNotifWa($message, $phone) {
+        $client = new Client([
+            'verify' => false
+        ]);
+        
+        $response = $client->post(
+            'https://api.fonnte.com/send',
+            [
+                'headers' => [
+                    'Authorization' => 'nAhCYxuXJx2VrZJAaSt7', // WA IPHONE
+                ],
+                'form_params' =>
+                [
+                    'target' => $phone,
+                    'message' => $message,
+                    'typing' => true,
+                ]
+            ]
+        );
+        $body = json_decode((string)$response->getBody());
+
+        return $body;
     }
 }
