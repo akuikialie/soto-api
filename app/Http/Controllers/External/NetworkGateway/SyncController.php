@@ -91,10 +91,7 @@ class SyncController extends Controller
 ';
         $message .= 'Powered _akuikialie.github.io_ - *Bot Whatsapp*';
 
-        // $this->sendNotifWa($message, '085730432092');
-        // exit;
-
-
+        $this->sendNotifWa($message, '085730432092');
 
         return response()->json([
             'data' => $service,

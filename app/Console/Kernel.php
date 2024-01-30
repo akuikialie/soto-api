@@ -11,6 +11,7 @@ class Kernel extends ConsoleKernel
         Commands\GenerateMessage::class,
         Commands\SendMessage::class,
         Commands\GenerateEmployeePresence::class,
+        Commands\SendNotificationWhatsappKlinikoo::class,
     ];
     /**
      * Define the application's command schedule.
@@ -22,11 +23,13 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('generate-message:cron')
         //          ->everyMinute();
-        $schedule->command('send-message:cron')
-                 ->everyTwoMinutes();
-        $schedule->command('generate-employee-presence:cron')
-                 //->everyTwoMinutes();
-                  ->everyMinute();
+        // $schedule->command('send-message:cron')
+        //          ->everyTwoMinutes();
+        // $schedule->command('generate-employee-presence:cron')
+        //          //->everyTwoMinutes();
+        //           ->everyMinute();
+        $schedule->command('send-notification-whatsapp:klinikoo')
+                 ->everyMinute();
         // $schedule->command('inspire')->hourly();
     }
 
