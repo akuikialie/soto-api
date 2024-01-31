@@ -63,6 +63,17 @@ return [
             ]) : [],
         ],
 
+        'klinikoo' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_KLINIKOO', '127.0.0.1'),
+            'port' => env('DB_PORT_KLINIKOO', '3306'),
+            'database' => env('DB_DATABASE_KLINIKOO', 'forge'),
+            'username' => env('DB_USERNAME_KLINIKOO', 'forge'),
+            'password' => env('DB_PASSWORD_KLINIKOO', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
