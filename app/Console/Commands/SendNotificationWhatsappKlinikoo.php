@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request as Psr7Request;
 use Illuminate\Support\Facades\DB;
+use GuzzleHttp\Exception\ServerException;
 
 class SendNotificationWhatsappKlinikoo extends Command
 {
@@ -46,23 +47,23 @@ class SendNotificationWhatsappKlinikoo extends Command
         $service = [
             'modules' => [
                 'homepage_klinikoo' => false,
-                'mitra_klinikoo' => false,
+                // 'mitra_klinikoo' => false,
                 'dashboard_klinikoo' => false,
                 'dokter_klinikoo' => false,
                 'pasien_klinikoo' => false,
             ],
             'configurations' => [
-                'redis' => false,
-                'mariadb' => false,
-                'nodejs' => false,
+                // 'redis' => false,
+                'database' => false,
+                // 'nodejs' => false,
             ],
         ];
         if ($responseHomepage = $this->checkEnv('https://klinikoo.id/env')) {
             $service['modules']['homepage_klinikoo'] = $responseHomepage;
         }
-        if ($responseMitra = $this->checkEnv('https://mitra.klinikoo.id/env')) {
-            $service['modules']['mitra_klinikoo'] = $responseMitra;
-        }
+        // if ($responseMitra = $this->checkEnv('https://mitra.klinikoo.id/env')) {
+        //     $service['modules']['mitra_klinikoo'] = $responseMitra;
+        // }
         if ($responseDashboard = $this->checkEnv('https://dashboard.klinikoo.id')) {
             $service['modules']['dashboard_klinikoo'] = $responseDashboard;
         }
@@ -74,7 +75,7 @@ class SendNotificationWhatsappKlinikoo extends Command
         }
 
         if ($responseDatabase = $this->checkDatabase()) {
-            $service['configurations']['mariadb'] = $responseDatabase;
+            $service['configurations']['database'] = $responseDatabase;
         }
         $message = 'Assalamualaikum, ijin share status server.
 |------------------|---------------------|
@@ -128,6 +129,8 @@ class SendNotificationWhatsappKlinikoo extends Command
                 return false;
             }
             return true;
+        } catch (ServerException $e) {
+            return false;
         } catch (Exception $e) {
             return false;
         }
