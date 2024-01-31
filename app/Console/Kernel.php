@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
         //          //->everyTwoMinutes();
         //           ->everyMinute();
         $schedule->command('send-notification-whatsapp:klinikoo')
-                 ->everyMinute();
+                 ->hourly();
         // $schedule->command('inspire')->hourly();
     }
 
