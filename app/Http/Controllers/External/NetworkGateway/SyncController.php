@@ -35,10 +35,7 @@ class SyncController extends Controller
                 $headers
             );
             $res = $client->sendAsync($request)->wait();
-            // echo $res->getBody();
 
-            // echo "<pre>";
-            // var_dump($res->getStatusCode());
             if ($res->getStatusCode() !== 200) {
                 return false;
             }
@@ -69,46 +66,62 @@ class SyncController extends Controller
     {
         $service = [
             'modules' => [
-                'homepage_klinikoo' => false,
-                'mitra_klinikoo' => false,
-                'dashboard_klinikoo' => false,
-                'dokter_klinikoo' => false,
-                'pasien_klinikoo' => false,
+                'homepage_klinikoo' => null,
+                'dashboard_klinikoo' => null,
+                'dokter_klinikoo' => null,
+                'pasien_klinikoo' => null,
+
+                'mitra_stage_klinikoo' => null,
+                'homepage_stage_klinikoo' => null,
             ],
             'configurations' => [
-                'redis' => false,
-                'mariadb' => false,
-                'nodejs' => false,
+                'mariadb' => null,
             ],
         ];
         if ($responseHomepage = $this->checkEnv('https://klinikoo.id/env')) {
             $service['modules']['homepage_klinikoo'] = $responseHomepage;
         }
         if ($responseMitra = $this->checkEnv('https://mitra.klinikoo.id/env')) {
-            $service['modules']['mitra_klinikoo'] = $responseMitra;
+            $service['modules']['mitra_stage_klinikoo'] = $responseMitra;
+        } else {
+            $service['modules']['mitra_stage_klinikoo'] = false;
+        }
+        if ($responseHomepageStage = $this->checkEnv('https://stage.klinikoo.id')) {
+            $service['modules']['homepage_stage_klinikoo'] = $responseHomepageStage;
+        } else {
+            $service['modules']['homepage_stage_klinikoo'] = false;
         }
         if ($responseDashboard = $this->checkEnv('https://dashboard.klinikoo.id')) {
             $service['modules']['dashboard_klinikoo'] = $responseDashboard;
+        } else {
+            $service['modules']['dashboard_klinikoo'] = false;
         }
         if ($responseDokterLandingPage = $this->checkEnv('https://dokterapp.klinikoo.id')) {
             $service['modules']['dokter_klinikoo'] = $responseDokterLandingPage;
+        } else {
+            $service['modules']['dokter_klinikoo'] = false;
         }
         if ($responseDokterLandingPage = $this->checkEnv('https://apipasien.klinikoo.id/api/v2/my-env')) {
             $service['modules']['pasien_klinikoo'] = $responseDokterLandingPage;
+        } else {
+            $service['modules']['pasien_klinikoo'] = false;
         }
 
-        if ($responseDatabase = $this->checkDatabase()) {
-            $service['configurations']['mariadb'] = $responseDatabase;
-        }
+        // if ($responseDatabase = $this->checkDatabase()) {
+        //     $service['configurations']['mariadb'] = $responseDatabase;
+        // }
+
         $message = 'Assalamualaikum, ijin share status server.
 |------------------|---------------------|
 ';
         $index = 1;
         foreach ($service as $key => $val) {
             foreach ($val as $keyDetail => $valueDetail) {
-                $message .= '  '.$index. ' . ['. strtoupper($keyDetail).'] = '. ($valueDetail ? '*ONLINE*' : '_OFFLINE_'). "
+                if (!is_null($valueDetail) && ($valueDetail === false)) {
+                $message .= '  '.$index. ' . ['. strtoupper($keyDetail).'] = '. ($valueDetail ? '*ONLINE*' : '_*OFFLINE*_'). "
 ";
-                $index++;
+                    $index++;
+                }
             }
         }
         $message .= '|------------------|---------------------|';
