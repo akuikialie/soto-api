@@ -22,20 +22,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('send-notification-whatsapp:klinikoo')->dailyAt('14:29');
-        $schedule->command('send-notification-whatsapp:klinikoo')->dailyAt('14:35');
-        // $schedule->command('send-notification-whatsapp:klinikoo')->dailyAt('15:00');
-        // $schedule->command('send-notification-whatsapp:klinikoo')->dailyAt('08:00');
-        // $schedule->command('generate-message:cron')
-        //          ->everyMinute();
-        // $schedule->command('send-message:cron')
-        //          ->everyTwoMinutes();
+        $schedule->command('generate-message:cron')
+                 ->everyMinute();
+        $schedule->command('send-message:cron')
+                 ->everyMinute();
+        $schedule->command('send-notification-whatsapp:klinikoo')->dailyAt('15:00');
+        $schedule->command('send-notification-whatsapp:klinikoo')->dailyAt('08:00');
+        $schedule->command('send-notification-whatsapp:klinikoo')
+                 ->hourly();
         // $schedule->command('generate-employee-presence:cron')
         //          //->everyTwoMinutes();
         //           ->everyMinute();
-        // $schedule->command('send-notification-whatsapp:klinikoo')
-        //          ->hourly();
-        // $schedule->command('inspire')->hourly();
     }
 
     /**
