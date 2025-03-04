@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get(
+    '/',
+    [
+        \App\Http\Controllers\DefaultRouteController::class,
+        'index'
+    ])
+    ->name('default.index');
 
 Route::get('/route-list', function () {
     Artisan::call('route:list');

@@ -1,98 +1,23 @@
-version: '3'
+version: "3.7"
 services:
+    core-soto-api-app:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        container_name: core-soto-api-app
+        restart: unless-stopped
+        tty: true
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+        ports:
+            - "127.0.0.1:4491:80"
+        environment:
+            APP_URL: "https://localhost:4491"
+            APP_NAME: "SOTOAYAM-CORE-API"
+        networks:
+            - core-soto-api-net
 
-  #Redis Service
-  core-soto-api-redis:
-    image: redis:5.0-alpine
-    container_name: core-soto-api-redis
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "63797:6379"
-    volumes:
-      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
-      - redisdata:/data
-    networks:
-      - core-soto-api-network
-
-  #PHP Service
-  core-soto-api-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: laravel
-    container_name: core-soto-api-app
-    restart: unless-stopped
-    tty: true
-    environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
-    working_dir: /var/www
-    volumes:
-      - ./:/var/www
-      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
-    networks:
-      - core-soto-api-network
-
-  #Nginx Service
-  core-soto-api-webserver:
-    image: nginx:alpine
-    container_name: core-soto-api-webserver
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "8037:80"
-      - "4427:443"
-    volumes:
-      - ./:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
-    networks:
-      - core-soto-api-network
-
-  core-soto-api-pgsql:
-    image: postgres:15.0-alpine
-    container_name: core-soto-api-pgsql
-    working_dir: /data/pgsql
-    volumes:
-    - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: pguser
-      POSTGRES_PASSWORD: komodity_api_db2022
-      POSTGRES_DB: komodity_api_db2022
-    ports:
-      - 54321:5432
-    networks:
-      - core-soto-api-network
-
-  #MySQL Service
-  core-soto-api-db:
-    image: mysql:5.7.22
-    container_name: core-soto-api-db
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "33037:3306"
-    environment:
-      MYSQL_DATABASE: soto_api_db2023
-      MYSQL_ROOT_PASSWORD: soto_api_db2023
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
-    volumes:
-      - ./database/core-soto-api.sql:/home/core-soto-api.sql
-      - dbdata:/var/lib/mysql/
-      - ./mysql/my.cnf:/etc/mysql/my.cnf
-    networks:
-      - core-soto-api-network
-
-#Docker Networks
 networks:
-  core-soto-api-network:
-    driver: bridge
-#Volumes
-volumes:
-  dbdata:
-    driver: local
-  postgres_data:
-    driver: local
-  redisdata:
-    driver: local
+    core-soto-api-net:
+        driver: bridge
