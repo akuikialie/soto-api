@@ -1,10 +1,10 @@
 version: "3.7"
 services:
-    core-soto-api-app:
+    core-api-v2-app:
         build:
             context: .
             dockerfile: ./Dockerfile
-        container_name: core-soto-api-app
+        container_name: core-api-v2-app
         restart: unless-stopped
         tty: true
         working_dir: /var/www
@@ -14,10 +14,10 @@ services:
             - "127.0.0.1:4491:80"
         environment:
             APP_URL: "https://localhost:4491"
-            APP_NAME: "SOTOAYAM-CORE-API"
+            APP_NAME: "CORE-API-V2"
         networks:
-            - core-soto-api-net
+            - core-api-v2-net
 
 networks:
-    core-soto-api-net:
+    core-api-v2-net:
         driver: bridge

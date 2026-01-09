@@ -21,7 +21,7 @@ Route::get(
     ])
     ->name('default.index');
 
-Route::get('/route-list', function () {
+Route::get('/routes', function () {
     Artisan::call('route:list');
 
     return '<pre>' . Artisan::output();
