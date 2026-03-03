@@ -9,10 +9,11 @@ use Carbon;
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
-        Commands\GenerateMessage::class,
-        Commands\SendMessage::class,
-        Commands\GenerateEmployeePresence::class,
-        Commands\SendNotificationWhatsappKlinikoo::class,
+        Commands\NotificationReminderSholat::class,
+        // Commands\GenerateMessage::class,
+        // Commands\SendMessage::class,
+        // Commands\GenerateEmployeePresence::class,
+        // Commands\SendNotificationWhatsappKlinikoo::class,
     ];
     /**
      * Define the application's command schedule.
@@ -22,14 +23,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('generate-message:cron')
-                 ->everyMinute();
-        $schedule->command('send-message:cron')
-                 ->everyMinute();
-        $schedule->command('send-notification-whatsapp:klinikoo')->dailyAt('15:00');
-        $schedule->command('send-notification-whatsapp:klinikoo')->dailyAt('08:00');
-        $schedule->command('send-notification-whatsapp:klinikoo')
-                 ->hourly();
+        $schedule->command('notification:reminder-sholat')
+                 ->dailyAt('06:00');
+        // $schedule->command('generate-message:cron')
+        //          ->everyMinute();
+        // $schedule->command('send-message:cron')
+        //          ->everyMinute();
+        // $schedule->command('send-notification-whatsapp:klinikoo')->dailyAt('15:00');
+        // $schedule->command('send-notification-whatsapp:klinikoo')->dailyAt('08:00');
+        // $schedule->command('send-notification-whatsapp:klinikoo')
+        //          ->hourly();
         // $schedule->command('generate-employee-presence:cron')
         //          //->everyTwoMinutes();
         //           ->everyMinute();
