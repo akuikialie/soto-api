@@ -19,9 +19,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-// Route::get('/',  [DefaultRouteController::class, 'index'])
-//     // ->middleware('log')
-//     ->name('api.default.index');
+Route::get('/',  [App\Http\Controllers\Api\DefaultRouteController::class, 'index'])
+    ->name('api.default.index');
 
 // Route::post('/env',  [DefaultRouteController::class, 'env'])
 //     ->name('api.default.post.env');

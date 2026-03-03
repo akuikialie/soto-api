@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Exception;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class DefaultRouteController extends Controller
 {
     public function index()
     {
-        $textTemplate = "[PHOTO-CROP]";
+        $textTemplate = "[PHOTO-CROP] API";
         Telegram::sendTelegram('154542013', $textTemplate);
         exit;
         $dbTimestamp = '';
